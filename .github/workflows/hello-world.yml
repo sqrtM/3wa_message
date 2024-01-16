@@ -28,7 +28,7 @@ jobs:
       - name: Say hello
         run: ./actions/print
         with:
-          who-to-green: Mason
+          who-to-greet: Mason
 
 
   sayBye:
