@@ -1,4 +1,5 @@
-name: "Print Hello World!"
+name: Print Hello World
+
 on:
   push:
     branches:
@@ -7,14 +8,15 @@ on:
     types:
       - labeled
       - synchronize
+
 jobs:
   print:
     runs-on: ubuntu-latest
     steps:
-      - name: checkout
+      - name: Checkout du code
         uses: actions/checkout@v2
 
-      - name: install php
+      - name: "Install PHP with extensions"
         uses: shivammathur/setup-php@v2
         with:
           coverage: "xdebug"
@@ -22,20 +24,19 @@ jobs:
           php-version: 8.2
           tools: composer:v2
 
-      - name: install dependencies
+      - name: "Install dependencies"
         run: composer install --ansi --no-interaction --no-progress
 
-      - name: Say hello
-        run: ./actions/print
+      - name: "Say Hello"
+        uses: ./.github/actions/print
         with:
           who-to-greet: Mason
-
 
   sayBye:
     runs-on: ubuntu-latest
     steps:
-      - name: checkout
+      - name: Checkout du code
         uses: actions/checkout@v2
 
-      - name: Say Bye
+      - name: "Say Bye"
         run: echo "Goodbye"
