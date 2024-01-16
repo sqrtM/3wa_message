@@ -1,0 +1,41 @@
+name: "Print Hello World!"
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types:
+      - labeled
+      - synchronize
+jobs:
+  print:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+
+      - name: install php
+        uses: shivammathur/setup-php@v2
+        with:
+          coverage: "xdebug"
+          extensions: "intl, mbstring, pdo_sqlite, zip"
+          php-version: 8.2
+          tools: composer:v2
+
+      - name: install dependencies
+        run: composer install --ansi --no-interaction --no-progress
+
+      - name: Say hello
+        run: ./actions/print
+        with:
+          who-to-green: Mason
+
+
+  sayBye:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+
+      - name: Say Bye
+        run: echo "Goodbye"
